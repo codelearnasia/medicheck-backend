@@ -17,30 +17,40 @@ connection.end()
 */
 
 let PharmacyController = {
-	getMatchStats : (req,res,next) => {
-    let params = req.query;
-    if(!params.matchId) return res.status(400).send('Match ID is required in getting the live text');
-    if(!params.matchLink) return res.status(400).send('Match LINK is required in getting the live text');
-    console.log('Params:',params);
-    redisClient.get(`matchStats:${params.matchId}`)
-     .then(results => {
-       if(!results || results == '[]'){
-          publisher.publish('scrape',JSON.stringify({to:'liveMatch',type:'matchStats',matchId:params.matchId,matchLink:params.matchLink}));
-          return res.send({matchStats:[]});
-       }else{
-          res.send({matchStats:JSON.parse(results)});
-       }
-     })
-     .catch((err) => {
-       console.log('Err:',err);
-       res.status(400).send(err);
-     });
-  },	
-  getAllPharmacies : (req,res,next) => {
+	getAllPharmacies : (req,res,next) => {
     let params = req.query;
 	return res.send({data:[
 	  {
-	    pharmacy: "Raffles Pharmacy",
+	    name: "Raffles Pharmacy",
+	    address: {
+	      postalcode: 048942,
+	      street: "63 Market Street"
+	    },
+	    GEO: {
+	    	lat: 1.2841647,
+	    	lng: 103.8502117
+	    },
+	    id: 0
+	  },
+	  {
+	    name: "Stamford Pharmacy",
+	    address: {
+	      postalcode: 178905,
+	      street: "15 Stamford Road"
+	    },
+	    GEO:{
+	    	lat: 1.2939789,
+	    	lng: 103.8506287
+	    },
+	    id: 1
+	  },
+	]});
+  },	
+  getClosestPharmacies : (req,res,next) => {
+    let params = req.query;
+	return res.send({data:[
+	  {
+	    name: "Raffles Pharmacy",
 	    address: {
 	      postalcode: 1234,
 	      street: "Raffles Street"
@@ -53,7 +63,7 @@ let PharmacyController = {
 	    id: 0
 	  },
 	  {
-	    pharmacy: "Stamford Pharmacy",
+	    name: "Stamford Pharmacy",
 	    address: {
 	      postalcode: 2345,
 	      street: "Stamford Street"
