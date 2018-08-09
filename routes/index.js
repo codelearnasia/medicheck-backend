@@ -5,7 +5,7 @@ let PharmacyController = require('../api/pharmacies.js');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Eddie' });
+  res.render('index', { title: 'Mediccheck CodeLearn' });
 });
 
 /* GET ALL PHARMACIES*/
