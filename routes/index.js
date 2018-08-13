@@ -19,9 +19,10 @@ router.get('/api/v1/getClosestPharmacies', PharmacyController.getAllPharmacies);
 /* GET AllPharmacies with Medicine*/
 router.get('/api/v1/getAllMedicines', MedicineController.getMedicinePharmacies);
 
+/* GET Single Medicine and Pharmacies that have it*/
+router.get('/api/v1/getSingleMedicine/:medicineName', MedicineController.getSingleMedicine);
+
 //Get medicines and pharmacy quanitity
 router.get('/api/v1/getAllStock', MedicineController.getAllStock);
 
 module.exports = router;
-
-
