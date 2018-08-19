@@ -25,4 +25,9 @@ router.get('/api/v1/getSingleMedicine/:medicineName', MedicineController.getSing
 //Get medicines and pharmacy quanitity
 router.get('/api/v1/getAllStock', MedicineController.getAllStock);
 
+//Get medicines and pharmacy quanitity
+router.get('/health_check', function(req, res, next) {
+	res.send({"statusCode":200})
+});
+
 module.exports = router;
