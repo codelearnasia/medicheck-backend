@@ -10,6 +10,13 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Mediccheck CodeLearn' });
 });
 
+//Get medicines and pharmacy quanitity
+router.get('/health_check', function(req, res, next) {
+	res.send({"statusCode":200})
+});
+
+// v1 - hardcoded //
+
 /* GET ALL PHARMACIES*/
 router.get('/api/v1/getAllPharmacies', PharmacyController.getAllPharmacies);
 
@@ -25,9 +32,11 @@ router.get('/api/v1/getSingleMedicine/:medicineName', MedicineController.getSing
 //Get medicines and pharmacy quanitity
 router.get('/api/v1/getAllStock', MedicineController.getAllStock);
 
-//Get medicines and pharmacy quanitity
-router.get('/health_check', function(req, res, next) {
-	res.send({"statusCode":200})
-});
+
+// v2 - from Database //
+
+/* GET ALL PHARMACIES*/
+router.get('/api/v2/getAllPharmacies', PharmacyController.getAllDbPharmacies);
+
 
 module.exports = router;

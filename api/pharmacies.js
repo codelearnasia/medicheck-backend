@@ -1,20 +1,13 @@
-/*var mysql = require('mysql')
+var mysql = require('mysql')
+
 var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
-  password : 'password',
-  database : 'medicheck_db'
+  password : 'medicheck1234',
+  database : 'medicheck',
+  insecureAuth: true
 });
 
-connection.connect()
-
-connection.query('SELECT 1 + 1 AS solution', function (err, rows, fields) {
-  if (err) throw err
-  console.log('The solution is: ', rows[0].solution)
-})
-
-connection.end()
-*/
 
 let PharmacyController = {
 	getAllPharmacies : (req,res,next) => {
@@ -169,9 +162,6 @@ let PharmacyController = {
   getClosestPharmacies : (req,res,next) => {
     let params = req.query;
 
-    
-
-
 	return res.send({data:[
 	  {
 	    name: "Raffles Pharmacy",
@@ -200,6 +190,14 @@ let PharmacyController = {
 	    id: 1
 	  },
 	]});
+  },
+  getDbPharmacies : (req,res,next) => {
+  connection.connect()
+    connection.query('SELECT * FROM medicheck.pharmacies', function (err, rows, fields) {
+      if (err) throw err
+        res.send({data:rows[0]});
+    })
+  connection.end()
   }
 };
 
